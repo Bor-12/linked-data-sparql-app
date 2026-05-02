@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SPARQL Explorer — Linked Data</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;600;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+  <div class="glow-orb glow-1"></div>
+  <div class="glow-orb glow-2"></div>
+
+  <div class="wrapper">
+    <header>
+      <div class="logo">
+        <div class="logo-icon">⬡</div>
+        <div class="logo-text">
+          <h1>SPARQL Explorer</h1>
+          <span>Linked Data — SPARQL endpoints</span>
+        </div>
+      </div>
+
+
+    </header>
+
+    <main class="main-grid">
+
+      <aside class="sidebar">
+
+        <section class="card">
+          <div class="card-header">
+            <div class="dot"></div>
+            <h3>Endpoint SPARQL</h3>
+          </div>
+
+          <div class="card-body">
+            <select class="endpoint-select" id="endpointSelect">
+              {% for name, url in endpoints.items() %}
+               {% if name == "DBpedia" %}
+                      <option value="{{ url }}" selected>{{ name }}</option>
+                    {% else %}
+                      <option value="{{ url }}">{{ name }}</option>
+                    {% endif %}
+              {% endfor %}
+            </select>
+
+            <div class="endpoint-url" id="endpointUrl">
+              https://dbpedia.org/sparql
+            </div>
+          </div>
+        </section>
+
+        <section class="card">
+          <div class="card-header">
+            <div class="dot dot-accent2"></div>
+            <h3>Consultas predefinidas</h3>
+          </div>
+
+          <div class="card-body">
+            {% for name, data in queries.items() %}
+              <button class="query-btn" type="button" data-query-name="{{ name }}">
+                <span class="q-icon">{{ loop.index }}.</span>
+                {{ name }}
+              </button>
+            {% endfor %}
+          </div>
+        </section>
+
+        <section class="card">
+          <div class="card-header">
+            <div class="dot dot-success"></div>
+            <h3>Estadísticas</h3>
+          </div>
+
+          <div class="stat">
+            <div class="stat-value" id="statResults">—</div>
+            <div class="stat-label">Resultados</div>
+          </div>
+
+          <div class="stat-separator"></div>
+
+          <div class="stat">
+            <div class="stat-value" id="statTime">—</div>
+            <div class="stat-label">Tiempo (ms)</div>
+          </div>
+
+          <div class="stat-separator"></div>
+
+          <div class="stat">
+            <div class="stat-value" id="statCols">—</div>
+            <div class="stat-label">Columnas</div>
+          </div>
+        </section>
+
+      </aside>
+
+      <section class="query-panel">
+
+        <div class="editor-wrap" id="editorWrap">
+          <div class="editor-topbar">
+            <div class="traffic-lights">
+              <div class="tl tl-r"></div>
+              <div class="tl tl-y"></div>
+              <div class="tl tl-g"></div>
+            </div>
+
+            <div class="editor-label">SPARQL Query Editor</div>
+            <div class="editor-spacer"></div>
+          </div>
+
+          <textarea id="queryInput" spellcheck="false" placeholder="# Escribe tu consulta SPARQL aquí...
+
+PREFIX dbo: <http://dbpedia.org/ontology/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?s ?label WHERE {
+  ?s rdfs:label ?label .
+  FILTER(lang(?label) = 'en')
+}
+LIMIT 10"></textarea>
+
+          <div class="run-bar">
+            <button class="btn-run pulse" id="btnRun" onclick="runQuery()">
+              ▶ Ejecutar
+            </button>
+
+            <button class="btn-clear" onclick="clearQuery()">
+              ✕ Limpiar
+            </button>
+
+            <div class="hint">Ctrl+Enter</div>
+          </div>
+        </div>
+
+        <div class="results-panel" id="resultsPanel">
+          <div class="results-header">
+            <div class="results-title">
+              <span>⬡</span>
+              Resultados
+            </div>
+
+            <div class="results-actions">
+              <span class="time-badge" id="timeBadge"></span>
+              <span class="result-count" id="resultCount" style="display:none">0 filas</span>
+              <button class="btn-export" id="btnExport" style="display:none" onclick="exportCSV()">
+                ⬇ CSV
+              </button>
+            </div>
+          </div>
+
+          <div class="results-body" id="resultsBody">
+            <div class="placeholder">
+              <div class="placeholder-icon">◈</div>
+              <div class="placeholder-text">Ejecuta una consulta para ver los resultados</div>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+    </main>
+  </div>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
