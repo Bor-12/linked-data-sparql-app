@@ -20,7 +20,7 @@ Primero se instalan las dependencias del proyecto:
 ```bash
   pip install -r requirements.txt
 ```
-
+---
 ## Ejecución
 
 Para ejecutar la aplicación, hay que situarse en la carpeta principal del proyecto y ejecutar:
@@ -36,7 +36,7 @@ Si no se abre automáticamente, se puede acceder manualmente desde:
 ```text
 http://localhost:5000
 ```
-
+---
 ## Funcionalidades
 
 La aplicación permite:
@@ -51,13 +51,13 @@ La aplicación permite:
   - tiempo de respuesta,
   - número de columnas.
 - Exportar los resultados en formato CSV.
-
+---
 ## Endpoints utilizados
 
 - DBpedia
 - Wikidata
 - Europeana
-
+---
 ## Consultas predefinidas
 
 La aplicación incluye consultas de ejemplo como:
