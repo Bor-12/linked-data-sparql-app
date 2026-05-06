@@ -611,21 +611,29 @@ header {
 
 /* CSV export btn */
 .btn-export {
-  background: transparent;
-  border: 1px solid var(--border);
-  color: var(--muted);
+  background: linear-gradient(135deg, var(--success), #16a34a);
+  border: 1px solid var(--success);
+  color: #03120d;
   font-family: var(--mono);
   font-size: 11px;
-  padding: 6px 14px;
+  font-weight: 700;
+  padding: 7px 16px;
   border-radius: var(--radius);
   cursor: pointer;
   transition: all 0.2s;
   letter-spacing: 1px;
+  box-shadow: 0 4px 14px rgba(34, 211, 165, 0.28);
 }
 
 .btn-export:hover {
-  border-color: var(--success);
-  color: var(--success);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 22px rgba(34, 211, 165, 0.45);
+  filter: brightness(1.08);
+}
+
+.btn-export:active {
+  transform: translateY(0);
+  box-shadow: 0 3px 10px rgba(34, 211, 165, 0.25);
 }
 
 /* Scrollbar */
