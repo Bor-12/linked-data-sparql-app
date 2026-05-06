@@ -1,8 +1,8 @@
 # SPARQL Explorer — Linked Data Application
 
-Aplicación web desarrollada con **Python y Flask** para consultar datos enlazados mediante **SPARQL**.
+Aplicación web desarrollada con Python y Flask para consultar datos enlazados mediante SPARQL.
 
-Permite ejecutar consultas sobre distintos endpoints Linked Data, como **DBpedia**, **Wikidata** y **Europeana**, mostrando los resultados en una tabla dentro de la propia web.
+Permite ejecutar consultas sobre distintos endpoints Linked Data, como DBpedia, Wikidata y Europeana, mostrando los resultados en una tabla dentro de la propia web.
 
 ---
 
@@ -13,20 +13,36 @@ Permite ejecutar consultas sobre distintos endpoints Linked Data, como **DBpedia
 
 ---
 
-## Instalación
+## Instalación y ejecución en Windows
 
-Primero se instalan las dependencias del proyecto:
+Para ejecutar la aplicación, hay que situarse en la carpeta principal del proyecto:
 
 ```bash
-  pip install -r requirements.txt
+cd linked_data_app
 ```
----
-## Ejecución
 
-Para ejecutar la aplicación, hay que situarse en la carpeta principal del proyecto y ejecutar:
+Después, crear un entorno virtual:
 
 ```bash
-  python app.py
+py -m venv .venv
+```
+
+Activar el entorno virtual:
+
+```bash
+.venv\Scripts\activate
+```
+
+Instalar las dependencias:
+
+```bash
+python -m pip install -r requirements.txt
+```
+
+Ejecutar la aplicación:
+
+```bash
+python app.py
 ```
 
 La aplicación se abrirá automáticamente en el navegador.
@@ -36,7 +52,9 @@ Si no se abre automáticamente, se puede acceder manualmente desde:
 ```text
 http://localhost:5000
 ```
+
 ---
+
 ## Funcionalidades
 
 La aplicación permite:
@@ -51,13 +69,17 @@ La aplicación permite:
   - tiempo de respuesta,
   - número de columnas.
 - Exportar los resultados en formato CSV.
+
 ---
+
 ## Endpoints utilizados
 
 - DBpedia
 - Wikidata
 - Europeana
+
 ---
+
 ## Consultas predefinidas
 
 La aplicación incluye consultas de ejemplo como:
