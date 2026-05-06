@@ -1,44 +1,28 @@
 PREDEFINED_QUERIES = {
     "DBpedia - Filósofos griegos": {
         "endpoint": "DBpedia",
-        "query": """PREFIX dbo: <http://dbpedia.org/ontology/>
-PREFIX dct: <http://purl.org/dc/terms/>
-PREFIX dbc: <http://dbpedia.org/resource/Category:>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-
-SELECT DISTINCT ?nombre ?nacimiento ?muerte ?descripcion
-WHERE {
-    ?persona dct:subject dbc:Ancient_Greek_philosophers .
-
-    OPTIONAL {
-        ?persona rdfs:label ?nombreEs .
-        FILTER (lang(?nombreEs) = "es")
+        "query": """PREFIX dct: <http://purl.org/dc/terms/>
+    PREFIX dbc: <http://dbpedia.org/resource/Category:>
+    PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+    
+    SELECT DISTINCT ?nombre
+    WHERE {
+        ?persona dct:subject dbc:Ancient_Greek_philosophers .
+    
+        OPTIONAL {
+            ?persona rdfs:label ?nombreEs .
+            FILTER (lang(?nombreEs) = "es")
+        }
+    
+        OPTIONAL {
+            ?persona rdfs:label ?nombreEn .
+            FILTER (lang(?nombreEn) = "en")
+        }
+    
+        BIND(COALESCE(?nombreEs, ?nombreEn) AS ?nombre)
     }
-
-    OPTIONAL {
-        ?persona rdfs:label ?nombreEn .
-        FILTER (lang(?nombreEn) = "en")
-    }
-
-    BIND(COALESCE(?nombreEs, ?nombreEn) AS ?nombre)
-
-    OPTIONAL { ?persona dbo:birthDate ?nacimiento . }
-    OPTIONAL { ?persona dbo:deathDate ?muerte . }
-
-    OPTIONAL {
-        ?persona dbo:abstract ?descripcionEs .
-        FILTER (lang(?descripcionEs) = "es")
-    }
-
-    OPTIONAL {
-        ?persona dbo:abstract ?descripcionEn .
-        FILTER (lang(?descripcionEn) = "en")
-    }
-
-    BIND(COALESCE(?descripcionEs, ?descripcionEn) AS ?descripcion)
-}
-ORDER BY ?nombre
-LIMIT 15"""
+    ORDER BY ?nombre
+    LIMIT 15"""
     },
 
     "DBpedia - Países con más superficie": {
